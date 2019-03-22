@@ -3,12 +3,12 @@ float robotY;
 float robotSpeedX;
 float soldierX=0;
 float soldierY;
-float soldierSpeedX=5;
+float soldierSpeedX=2;
 PImage soil,bg,groundhog,life,robot;
 int floorNumber=floor(random(3))+1;
 float laserX;
 float laserSpeedX=2;
-
+float laserLength=0;
 
 
 
@@ -74,31 +74,23 @@ void draw() {
   image (soldier ,soldierX,soldierY,80,80);
   soldierX+= soldierSpeedX;
   soldierX%=720;
- 
-  //laser
-  laserX-=laserSpeedX;
-  if(laserX<robotX-190){
-    laserX=robotX+5;}
+
   
   
    
 
-  //laser graphic
-
-  color(RGB);
-  fill(255,0,0);
+  //laser 
   noStroke();
-  rect(laserX,robotY+32,20,10);
+  fill(255, 0 ,0);
+  ellipse(robotX+25-laserX, robotY+37, 10, 10);
+  rect(robotX+25-laserX, robotY+32, laserLength, 10);
+  ellipse(robotX+25-max(laserX-40, 0), robotY+37, 10, 10);
   
-  color(RGB);
-  fill(255,0,0);
-  noStroke();
-  arc(laserX+20,robotY+37,10,10,-PI/2,PI/2);
-  
-  color(RGB);
-  fill(255,0,0);
-  noStroke();
-  arc(laserX+1,robotY+37,10,10,PI/2,3*PI/2);
+  soldierX += 2;
+  soldierX %=720;
+  laserX += 2;
+  laserX %=180;
+  laserLength = laserX-max(laserX-40,0);
 //robot img
 
  robot= loadImage("img/robot.png");
